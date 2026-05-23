@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;700;800&family=Playfair+Display:wght@600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;700;800&family=Playfair+Display:wght@600;700&family=Space+Grotesk:wght@600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles/main.css" />
@@ -30,6 +30,12 @@
 
         <form id="searchForm" class="search-form" autocomplete="off">
           <label class="sr-only" for="searchInput">Поисковая строка</label>
+          <span class="search-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+              <circle cx="11" cy="11" r="6.5"></circle>
+              <line x1="16" y1="16" x2="21" y2="21"></line>
+            </svg>
+          </span>
           <input
             id="searchInput"
             class="search-input"

@@ -116,6 +116,54 @@ body {
   gap: 0;
 }
 
+.section-nav {
+  width: min(96vw, 1180px);
+  margin: 0 auto 3.2rem;
+  padding: 0 1.75rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.section-nav-item:last-child {
+  text-align: right;
+}
+
+.section-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-family: Manrope, Inter, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: color 0.16s ease, transform 0.16s ease;
+}
+
+.section-nav-link:hover {
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.section-nav-link.is-disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.section-nav-arrow {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.section-nav-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
 .piece {
   background: transparent;
   border: 0;
@@ -192,8 +240,8 @@ body {
 
 .piece-credits .piece-text {
   text-align: center;
-  font-size: clamp(1.28rem, 2.5vw, 1.62rem);
-  line-height: 2.05;
+  font-size: clamp(1.1rem, 2.1vw, 1.34rem);
+  line-height: 1.9;
 }
 
 .piece-text-silk {
@@ -315,6 +363,23 @@ body {
   .feed {
     width: min(95vw, 1180px);
     padding: 0 0.35rem;
+  }
+
+  .section-nav {
+    width: min(95vw, 1180px);
+    padding: 0 0.5rem;
+    margin-bottom: 2.1rem;
+    gap: 0.35rem;
+  }
+
+  .section-nav-link {
+    font-size: 0.78rem;
+    gap: 0.25rem;
+    max-width: 100%;
+  }
+
+  .section-nav-label {
+    max-width: 30vw;
   }
 
   .piece {

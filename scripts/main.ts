@@ -21,6 +21,18 @@ const suggestions = document.querySelector<HTMLUListElement>("#suggestions");
 const aboutButton = document.querySelector<HTMLButtonElement>("#aboutButton");
 const aboutModal = document.querySelector<HTMLDivElement>("#aboutModal");
 const closeAboutButton = document.querySelector<HTMLButtonElement>("#closeAbout");
+const defaultSearchHint = "Литературный альманах";
+
+const syncSearchHintState = (): void => {
+  if (!searchInput) {
+    return;
+  }
+  if (searchInput.value.trim() === defaultSearchHint) {
+    searchInput.classList.add("is-hint");
+    return;
+  }
+  searchInput.classList.remove("is-hint");
+};
 
 const renderSuggestions = (): void => {
   if (!suggestions) {
@@ -66,12 +78,14 @@ const closeModal = (): void => {
 };
 
 renderSuggestions();
+syncSearchHintState();
 
 searchInput?.addEventListener("focus", () => {
   openSuggestions();
 });
 
 searchInput?.addEventListener("click", openSuggestions);
+searchInput?.addEventListener("input", syncSearchHintState);
 
 document.addEventListener("click", (event) => {
   const target = event.target as Node;
@@ -82,6 +96,7 @@ document.addEventListener("click", (event) => {
 
 searchForm?.addEventListener("submit", (event) => {
   event.preventDefault();
+  window.location.href = searchItems[0].path;
 });
 
 aboutButton?.addEventListener("click", openModal);

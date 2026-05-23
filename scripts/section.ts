@@ -22,12 +22,29 @@ type SectionPayload = {
   pieces: Piece[];
 };
 
+type SectionNavItem = {
+  id: string;
+  label: string;
+  path: string;
+};
+
+const sectionOrder: SectionNavItem[] = [
+  { id: "fish-dishes", label: "Блюда из рыбы", path: "./fish-dishes.html" },
+  { id: "chagall-walked", label: "Куда шагал Шагал?", path: "./chagall-walked.html" },
+  { id: "game-over", label: "Game Over", path: "./game-over.html" },
+  { id: "watch-poems", label: "Стихи смотреть онлайн", path: "./watch-poems.html" },
+  { id: "quirks", label: "Чудачества", path: "./quirks.html" },
+  { id: "life-how-to-live", label: "Как жить жизнь?", path: "./life-how-to-live.html" },
+  { id: "who-did-this", label: "Кто все это сделал !?", path: "./who-did-this.html" },
+];
+
 document.body.classList.add(`theme-${document.body.dataset.theme ?? "fish"}`);
 const titleNode = document.querySelector<HTMLElement>("#sectionTitle");
 const feedNode = document.querySelector<HTMLElement>("#feed");
 const headerNode = document.querySelector<HTMLElement>("#sectionHeader");
 const heroTitleNode = document.querySelector<HTMLElement>("#heroTitle");
 const heroImageNode = document.querySelector<HTMLImageElement>("#heroImage");
+const sectionId = document.body.dataset.sectionId ?? "";
 
 const appendFormattedText = (target: HTMLElement, rawText: string): void => {
   const parts = rawText.split(/(\*[^*\n]+\*)/g);
@@ -188,6 +205,64 @@ const renderSection = (pageData: SectionPayload): void => {
   }
 };
 
+const createNavItem = (
+  item: SectionNavItem | undefined,
+  direction: "prev" | "next",
+): HTMLElement => {
+  const wrapper = document.createElement("div");
+  wrapper.className = "section-nav-item";
+
+  if (!item) {
+    const disabled = document.createElement("span");
+    disabled.className = "section-nav-link is-disabled";
+    disabled.textContent = direction === "prev" ? "←" : "→";
+    wrapper.append(disabled);
+    return wrapper;
+  }
+
+  const link = document.createElement("a");
+  link.className = "section-nav-link";
+  link.href = item.path;
+  link.setAttribute(
+    "aria-label",
+    direction === "prev" ? `Предыдущий: ${item.label}` : `Следующий: ${item.label}`,
+  );
+
+  const arrow = document.createElement("span");
+  arrow.className = "section-nav-arrow";
+  arrow.textContent = direction === "prev" ? "←" : "→";
+
+  const label = document.createElement("span");
+  label.className = "section-nav-label";
+  label.textContent = item.label;
+
+  if (direction === "prev") {
+    link.append(arrow, label);
+  } else {
+    link.append(label, arrow);
+  }
+
+  wrapper.append(link);
+  return wrapper;
+};
+
+const renderBottomNavigation = (): void => {
+  const currentIndex = sectionOrder.findIndex((item) => item.id === sectionId);
+  if (currentIndex === -1 || !feedNode) {
+    return;
+  }
+
+  const nav = document.createElement("nav");
+  nav.className = "section-nav";
+  nav.setAttribute("aria-label", "Навигация по разделам");
+
+  const prev = sectionOrder[currentIndex - 1];
+  const next = sectionOrder[currentIndex + 1];
+
+  nav.append(createNavItem(prev, "prev"), createNavItem(next, "next"));
+  feedNode.insertAdjacentElement("afterend", nav);
+};
+
 let lastY = 0;
 let ticking = false;
 let shown = false;
@@ -221,7 +296,6 @@ window.addEventListener("scroll", () => {
 });
 
 const loadSectionData = async (): Promise<void> => {
-  const sectionId = document.body.dataset.sectionId;
   if (!sectionId) {
     throw new Error("Отсутствует идентификатор раздела.");
   }
@@ -253,6 +327,7 @@ const loadSectionData = async (): Promise<void> => {
   }
 
   renderSection(sectionData);
+  renderBottomNavigation();
 };
 
 loadSectionData().catch((error: unknown) => {

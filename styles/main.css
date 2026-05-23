@@ -270,28 +270,30 @@ body {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    column-gap: 0.4rem;
-    row-gap: 0.4rem;
+    column-gap: 0.32rem;
+    row-gap: 0.32rem;
     border-radius: 22px;
-    padding: 0.4rem;
+    padding: 0.34rem;
   }
 
   .search-input {
     flex: 0 0 auto;
     width: 100%;
-    font-size: 0.96rem;
-    padding: 0.68rem 0.75rem 0.68rem 2.35rem;
+    font-size: 0.88rem;
+    padding: 0.62rem 0.62rem 0.62rem 2.1rem;
   }
 
   .search-icon {
-    left: 0.8rem;
-    width: 1.06rem;
-    height: 1.06rem;
+    left: 0.72rem;
+    width: 0.95rem;
+    height: 0.95rem;
   }
 
   .read-button {
-    padding: 0.62rem 0.82rem;
-    font-size: 0.86rem;
+    padding: 0.52rem 0.64rem;
+    font-size: 0.76rem;
+    border-radius: 999px;
+    font-weight: 600;
     white-space: nowrap;
   }
 }

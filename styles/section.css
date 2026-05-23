@@ -268,31 +268,32 @@ body {
 @media (max-width: 640px) {
   .section-header {
     height: 60px;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 0.6rem;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.35rem;
     padding: 0 0.7rem;
   }
 
   .back-home {
     gap: 0.45rem;
-    font-size: 0.86rem;
+    font-size: 0.8rem;
     white-space: nowrap;
   }
 
   .header-logo {
-    height: 25px;
+    height: 22px;
   }
 
   .section-title {
-    font-size: 0.93rem;
+    font-size: 0.84rem;
     justify-self: center;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-width: 100%;
   }
 
   .header-right .header-logo {
-    height: 23px;
+    height: 20px;
   }
 
   .section-hero {

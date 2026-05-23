@@ -199,12 +199,27 @@ const loadSectionData = async () => {
     throw new Error("Отсутствует идентификатор раздела.");
   }
 
-  const response = await fetch("../content/sections.json");
-  if (!response.ok) {
-    throw new Error("Не удалось загрузить данные разделов.");
+  const cacheKey = "tochka.sections.v1";
+  let data = null;
+
+  const cached = sessionStorage.getItem(cacheKey);
+  if (cached) {
+    try {
+      data = JSON.parse(cached);
+    } catch {
+      sessionStorage.removeItem(cacheKey);
+    }
   }
 
-  const data = await response.json();
+  if (!data) {
+    const response = await fetch("../content/sections.json");
+    if (!response.ok) {
+      throw new Error("Не удалось загрузить данные разделов.");
+    }
+    data = await response.json();
+    sessionStorage.setItem(cacheKey, JSON.stringify(data));
+  }
+
   const sectionData = data.sections[sectionId];
   if (!sectionData) {
     throw new Error(`Раздел "${sectionId}" не найден.`);
